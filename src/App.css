@@ -5,19 +5,32 @@
   text-align: center;
 }
 
+.logo-wrapper {
+  perspective: 1000px;
+  display: inline-block;
+}
+
 .logo {
   height: 6em;
   padding: 1.5em;
-  will-change: filter;
+  will-change: transform;
   transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+  display: block;
+  transform-style: preserve-3d;
 }
 
+/* 🔄 VITE: Gira como pião (3D) */
+.logo.spin-3d {
+  animation: spin-top 2s linear infinite;
+}
+
+/* 🔁 REACT: Gira como roda (2D) */
+.logo.react.spin {
+  animation: logo-spin 20s linear infinite;
+  transform-origin: center;
+}
+
+/* Roda (2D) */
 @keyframes logo-spin {
   from {
     transform: rotate(0deg);
@@ -27,9 +40,13 @@
   }
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
+/* Pião (3D) */
+@keyframes spin-top {
+  from {
+    transform: rotateY(0deg) rotateX(5deg);
+  }
+  to {
+    transform: rotateY(360deg) rotateX(5deg);
   }
 }
 
