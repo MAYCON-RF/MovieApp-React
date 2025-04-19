@@ -5,6 +5,29 @@
   text-align: center;
 }
 
+/* Estilo do título */
+h1 {
+  color: #e50914; /* vermelho Netflix */
+  font-size: 2.5rem;
+  margin-bottom: 1.5rem;
+}
+
+/* Estilo do botão */
+button {
+  background-color: #e50914;
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+button:hover {
+  background-color: #b20710;
+}
+
 .logo-wrapper {
   perspective: 1000px;
   display: inline-block;
@@ -19,15 +42,9 @@
   transform-style: preserve-3d;
 }
 
-/* 🔄 VITE: Gira como pião (3D) */
+/* Gira como pião (3D) */
 .logo.spin-3d {
   animation: spin-top 2s linear infinite;
-}
-
-/* 🔁 REACT: Gira como roda (2D) */
-.logo.react.spin {
-  animation: logo-spin 20s linear infinite;
-  transform-origin: center;
 }
 
 /* Roda (2D) */
@@ -50,10 +67,22 @@
   }
 }
 
+/* Outros ajustes visuais */
 .card {
   padding: 2em;
+  background-color: #000;
+  border-radius: 8px;
+  margin-top: 2rem;
 }
 
 .read-the-docs {
   color: #888;
+}
+
+/* Fundo escuro no body */
+body {
+  margin: 0;
+  background-color: #000; /* preto */
+  color: #fff; /* texto branco */
+  font-family: 'Arial', sans-serif;
 }
