@@ -58,7 +58,7 @@ export default function Home() {
   /* Função assíncrona que busca os detalhes completos de um filme selecionado a partir do ID do filme.
  Os dados são obtidos da API do TMDB e armazenados no estado filmeSelecionado.*/
   async function buscarDetalhesFilme(id) {
-    const url = `https://api.themoviedb.org/3/movie/${id}?api_key=cb8aa97aefa3540c0fa8f582cce31e14&language=pt-BR&append_to_response=videos,credits`;
+    const url = `https://api.themoviedb.org/3/movie/${id}?api_key=cb8aa97aefa3540c0fa8f582cce31e14&language=pt-BR&append_to_response=videos,credits,translations`;
     const response = await fetch(url);
     const data = await response.json();
     setFilmeSelecionado(data);
@@ -66,18 +66,18 @@ export default function Home() {
 
   return (
     <div style={{ padding: "2rem", textAlign: "center" }}>
-      {/* Título */}
+      {/*Titulo*/}
       <h1 style={{ color: "#e50914" }}>Filmes</h1>
-  
-      {/* Barra de busca, filtro e botão em linha */}
-      <section
+
+      {/* Campo de busca por nome de filme */}
+      <div
         style={{
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
           gap: "1rem",
           marginBottom: "2rem",
-          flexWrap: "wrap", // permite quebrar linha em telas pequenas
+          flexWrap: "wrap",
         }}
       >
         <input
@@ -93,7 +93,8 @@ export default function Home() {
             border: "1px solid #ccc",
           }}
         />
-  
+
+        {/* Seletor de filtros */}
         <select
           value={filtro}
           onChange={(e) => setFiltro(e.target.value)}
@@ -102,13 +103,15 @@ export default function Home() {
             fontSize: "1rem",
             borderRadius: "4px",
             border: "1px solid #ccc",
+            marginBottom: "1rem",
           }}
         >
           <option value="popularidade">Popularidade</option>
           <option value="avaliacao">Avaliação</option>
           <option value="data">Data de Lançamento</option>
         </select>
-  
+        {/* Botão que executa a função de busca */}
+
         <button
           onClick={buscarFilmes}
           style={{
@@ -123,8 +126,8 @@ export default function Home() {
         >
           Buscar
         </button>
-      </section>
-  
+      </div>
+
       {/* Exibição dos cards de filmes */}
       <div
         style={{
@@ -156,7 +159,13 @@ export default function Home() {
             <h3 style={{ fontSize: "1rem", marginTop: "0.5rem" }}>
               {filme.title}
             </h3>
-            <p style={{ fontSize: "0.875rem" }}>⭐ {filme.vote_average} votos</p>
+
+            {/* Exibição dos rate point */}
+            <p style={{ fontSize: "0.875rem" }}>
+              ⭐ {filme.vote_average} votos
+            </p>
+
+            {/* Exibição da data de lançamento */}
             <p style={{ fontSize: "1rem" }}>
               Lançamento:{" "}
               {new Date(filme.release_date).toLocaleDateString("pt-BR", {
@@ -168,10 +177,6 @@ export default function Home() {
           </div>
         ))}
       </div>
-    </div>
-  );
-  
-
       {/* Modal com detalhes do filme */}
       {filmeSelecionado && (
         <div
@@ -224,13 +229,18 @@ export default function Home() {
               <h2 style={{ fontSize: "1.5rem", marginBottom: "1rem" }}>
                 {filmeSelecionado.title}
               </h2>
+
               <p style={{ marginBottom: "1rem" }}>
-                {filmeSelecionado.overview}
+                {filmeSelecionado.overview?.trim()
+                  ? filmeSelecionado.overview
+                  : filmeSelecionado.translations?.translations.find(
+                      (t) => t.iso_639_1 === "en"
+                    )?.data?.overview || "Sinopse não disponível."}
               </p>
             </div>
+
             {/* Exibição em cards do elenco */}
             <h3>Elenco:</h3>
-
             <div
               style={{
                 display: "flex",
@@ -254,7 +264,11 @@ export default function Home() {
                   }}
                 >
                   <img
-                    src={`https://image.tmdb.org/t/p/w185${ator.profile_path}`}
+                    src={
+                      ator.profile_path
+                        ? `https://image.tmdb.org/t/p/w185${ator.profile_path}`
+                        : "https://via.placeholder.com/100x150?text=No+Image"
+                    }
                     alt={ator.name}
                     style={{
                       width: "100%",
@@ -268,21 +282,30 @@ export default function Home() {
                 </div>
               ))}
             </div>
-            <div>
-              {/*Parte realacionada ao trailer*/}
-              <h3>Trailer:</h3>
-              {filmeSelecionado.videos?.results?.length > 0 ? (
-                <iframe
-                  width="100%"
-                  height="315"
-                  src={`https://www.youtube.com/embed/${filmeSelecionado.videos.results[0].key}`}
-                  title="Trailer"
-                  allowFullScreen
-                ></iframe>
-              ) : (
-                <p>Trailer não disponível.</p>
-              )}
-            </div>
+
+            {/*Parte relacionada ao trailer*/}
+            <h3>Trailer:</h3>
+            {filmeSelecionado.videos?.results?.length > 0 ? (
+              <iframe
+                width="100%"
+                height="315"
+                src={`https://www.youtube.com/embed/${filmeSelecionado.videos.results[0].key}`}
+                title="Trailer"
+                allowFullScreen
+              ></iframe>
+            ) : (
+              <div style={{ textAlign: "center", padding: "1rem" }}>
+                <img
+                  src="https://upload.wikimedia.org/wikipedia/commons/5/5f/Google-dino-game-offline.png"
+                  alt="Trailer não disponível"
+                  style={{ width: "150px", opacity: 0.5 }}
+                />
+                <p style={{ fontSize: "0.9rem", color: "#444" }}>
+                  Trailer não disponível
+                </p>
+              </div>
+            )}
+
             <button
               onClick={() => setFilmeSelecionado(null)}
               style={{
