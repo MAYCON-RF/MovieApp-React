@@ -103,7 +103,6 @@ export default function Home() {
             fontSize: "1rem",
             borderRadius: "4px",
             border: "1px solid #ccc",
-            marginBottom: "1rem",
           }}
         >
           <option value="popularidade">Popularidade</option>
@@ -152,7 +151,11 @@ export default function Home() {
             }}
           >
             <img
-              src={`https://image.tmdb.org/t/p/w200${filme.poster_path}`}
+              src={
+                filme.poster_path
+                  ? `https://image.tmdb.org/t/p/w200${filme.poster_path}`
+                  : "/naoDisponivel.svg"
+              }
               alt={filme.title}
               style={{ width: "100%", borderRadius: "4px" }}
             />
@@ -267,7 +270,7 @@ export default function Home() {
                     src={
                       ator.profile_path
                         ? `https://image.tmdb.org/t/p/w185${ator.profile_path}`
-                        : "https://via.placeholder.com/100x150?text=No+Image"
+                        : "/naoDisponivel.svg" // mesma imagem usada nos filmes
                     }
                     alt={ator.name}
                     style={{
@@ -283,28 +286,49 @@ export default function Home() {
               ))}
             </div>
 
-            {/*Parte relacionada ao trailer*/}
             <h3>Trailer:</h3>
-            {filmeSelecionado.videos?.results?.length > 0 ? (
-              <iframe
-                width="100%"
-                height="315"
-                src={`https://www.youtube.com/embed/${filmeSelecionado.videos.results[0].key}`}
-                title="Trailer"
-                allowFullScreen
-              ></iframe>
-            ) : (
-              <div style={{ textAlign: "center", padding: "1rem" }}>
-                <img
-                  src="https://upload.wikimedia.org/wikipedia/commons/5/5f/Google-dino-game-offline.png"
-                  alt="Trailer não disponível"
-                  style={{ width: "150px", opacity: 0.5 }}
-                />
-                <p style={{ fontSize: "0.9rem", color: "#444" }}>
-                  Trailer não disponível
-                </p>
-              </div>
-            )}
+            <div
+              style={{
+                backgroundColor: "#f0f0f0",
+                padding: "1rem",
+                borderRadius: "8px",
+                boxShadow: "0 0 6px rgba(0,0,0,0.2)",
+                marginBottom: "1rem",
+                textAlign: "center",
+              }}
+            >
+              {filmeSelecionado.videos?.results?.length > 0 ? (
+                <>
+                  <iframe
+                    width="100%"
+                    height="315"
+                    src={`https://www.youtube.com/embed/${filmeSelecionado.videos.results[0].key}`}
+                    title="Trailer"
+                    allowFullScreen
+                    style={{
+                      borderRadius: "4px",
+                      border: "none",
+                    }}
+                    onLoad={() => console.log("iframe carregado")}
+                  ></iframe>
+                </>
+              ) : (
+                <>
+                  <img
+                    src="/videoNaoDisponivel.svg"
+                    alt="Trailer não disponível"
+                    style={{
+                      width: "200px",
+                      opacity: 0.5,
+                      marginBottom: "0.5rem",
+                    }}
+                  />
+                  <p style={{ fontSize: "0.9rem", color: "#444" }}>
+                    Trailer não disponível
+                  </p>
+                </>
+              )}
+            </div>
 
             <button
               onClick={() => setFilmeSelecionado(null)}
