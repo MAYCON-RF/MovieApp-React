@@ -1,11 +1,9 @@
-import { Link } from 'react-router-dom'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { Link } from "react-router-dom";
+
+import viteLogo from "/vite.svg";
+import "./App.css";
 
 function App() {
-
-
   return (
     <>
       <div>
@@ -20,13 +18,10 @@ function App() {
         <Link to="/home">
           <button>Entrar no app</button>
         </Link>
-        <p>
-          Clique no botão acima para acessar a próxima página.
-        </p>
+        <p>Clique no botão acima para acessar a próxima página.</p>
       </div>
-
     </>
-  )
+  );
 }
 
-export default App
+export default App;

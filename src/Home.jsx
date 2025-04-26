@@ -1,5 +1,7 @@
 // Importa os hooks useEffect e useState do React
 import { useEffect, useState } from "react";
+import RateExamples from "./Componentes/RateExamples";
+import FilmeCard from "./Componentes/FilmeCard";
 
 export default function Home() {
   /* Filmes é Estado que armazena a lista de filmes retornados da API, Inicialmente é um array vazio. 
@@ -130,56 +132,22 @@ export default function Home() {
       {/* Exibição dos cards de filmes */}
       <div
         style={{
-          display: "flex",
-          flexWrap: "wrap",
+          display: "grid",
+          gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))",
+          gap: "2rem",
           justifyContent: "center",
-          gap: "1rem",
+          alignContent: "start",
         }}
       >
         {filmes.map((filme) => (
-          <div
+          <FilmeCard
             key={filme.id}
+            filme={filme}
             onClick={() => buscarDetalhesFilme(filme.id)}
-            style={{
-              width: "200px",
-              backgroundColor: "#141414",
-              padding: "1rem",
-              borderRadius: "8px",
-              color: "#fff",
-              boxShadow: "0 0 8px rgba(0,0,0,0.4)",
-              cursor: "pointer",
-            }}
-          >
-            <img
-              src={
-                filme.poster_path
-                  ? `https://image.tmdb.org/t/p/w200${filme.poster_path}`
-                  : "/naoDisponivel.svg"
-              }
-              alt={filme.title}
-              style={{ width: "100%", borderRadius: "4px" }}
-            />
-            <h3 style={{ fontSize: "1rem", marginTop: "0.5rem" }}>
-              {filme.title}
-            </h3>
-
-            {/* Exibição dos rate point */}
-            <p style={{ fontSize: "0.875rem" }}>
-              ⭐ {filme.vote_average} votos
-            </p>
-
-            {/* Exibição da data de lançamento */}
-            <p style={{ fontSize: "1rem" }}>
-              Lançamento:{" "}
-              {new Date(filme.release_date).toLocaleDateString("pt-BR", {
-                day: "2-digit",
-                month: "long",
-                year: "numeric",
-              })}
-            </p>
-          </div>
+          />
         ))}
       </div>
+
       {/* Modal com detalhes do filme */}
       {filmeSelecionado && (
         <div
@@ -213,27 +181,45 @@ export default function Home() {
             <button
               onClick={() => setFilmeSelecionado(null)}
               style={{
-                position: "absolute",
-                top: "3px",
-                left: "3px",
+                position: "fixed",
+                top: "10px",
+                right: "10px",
                 backgroundColor: "#e50914",
                 border: "none",
-                fontSize: "1rem",
+                fontSize: "1.2rem",
                 fontWeight: "bold",
                 color: "#fff",
                 cursor: "pointer",
+                borderRadius: "4px",
+                padding: "0.5rem",
+                zIndex: 10000, // sobrepõe tudo
               }}
               aria-label="Fechar"
             >
               ×
             </button>
-
-            <div>
+            <div
+              style={{
+                backgroundColor: "#f0f0f0",
+                color: "#000",
+                padding: "1rem",
+                paddingTop: "2.5rem",
+                borderRadius: "8px",
+                boxShadow: "0 0 6px rgba(0,0,0,0.2)",
+                marginBottom: "1.5rem",
+                textAlign: "center",
+              }}
+            >
               <h2 style={{ fontSize: "1.5rem", marginBottom: "1rem" }}>
                 {filmeSelecionado.title}
               </h2>
 
-              <p style={{ marginBottom: "1rem" }}>
+              <p
+                style={{
+                  marginBottom: "0",
+                  textAlign: "justify",
+                }}
+              >
                 {filmeSelecionado.overview?.trim()
                   ? filmeSelecionado.overview
                   : filmeSelecionado.translations?.translations.find(
@@ -243,7 +229,7 @@ export default function Home() {
             </div>
 
             {/* Exibição em cards do elenco */}
-            <h3>Elenco:</h3>
+
             <div
               style={{
                 display: "flex",
@@ -253,6 +239,7 @@ export default function Home() {
                 marginBottom: "1rem",
               }}
             >
+              <h3>Elenco:</h3>
               {filmeSelecionado.credits?.cast?.slice(0, 5).map((ator) => (
                 <div
                   key={ator.id}
@@ -270,7 +257,7 @@ export default function Home() {
                     src={
                       ator.profile_path
                         ? `https://image.tmdb.org/t/p/w185${ator.profile_path}`
-                        : "/naoDisponivel.svg" // mesma imagem usada nos filmes
+                        : "/naoDisponivel.svg"
                     }
                     alt={ator.name}
                     style={{
@@ -286,7 +273,6 @@ export default function Home() {
               ))}
             </div>
 
-            <h3>Trailer:</h3>
             <div
               style={{
                 backgroundColor: "#f0f0f0",
@@ -297,6 +283,7 @@ export default function Home() {
                 textAlign: "center",
               }}
             >
+              <h3>Trailer:</h3>
               {filmeSelecionado.videos?.results?.length > 0 ? (
                 <>
                   <iframe
