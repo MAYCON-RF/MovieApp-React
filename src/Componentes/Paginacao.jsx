@@ -3,14 +3,18 @@ import React from "react";
 export default function Paginacao({ pagina, setPagina, totalPaginas }) {
   const maxBotoesVisiveis = 5;
 
+  /* Função que gera os botões de paginação*/
   const gerarBotoes = () => {
     const botoes = [];
+
+    /* Se total de páginas for pequeno ele vai exibir todos*/
     if (totalPaginas <= maxBotoesVisiveis + 2) {
       for (let i = 1; i <= totalPaginas; i++) {
         botoes.push(criarBotao(i));
       }
     } else {
       if (pagina <= 3) {
+        /* Está no começo mostra primeiras páginas + elipse + última*/
         for (let i = 1; i <= maxBotoesVisiveis; i++) {
           botoes.push(criarBotao(i));
         }
@@ -39,6 +43,7 @@ export default function Paginacao({ pagina, setPagina, totalPaginas }) {
     return botoes;
   };
 
+  /* Função que cria um botão de página*/
   const criarBotao = (num) => (
     <label key={num} className="pagina-label">
       <input
@@ -52,10 +57,12 @@ export default function Paginacao({ pagina, setPagina, totalPaginas }) {
     </label>
   );
 
+  /* Calcula o número de botões que não são elipses*/
   const botoesSemElipses = gerarBotoes().filter(
     (btn) => btn.type !== "span"
   ).length;
 
+  /* Função para calcular o índice real do botão ativo */
   const calcularIndiceBotao = () => {
     const labels = document.querySelectorAll(".radio-input label");
     let indiceReal = 0;
@@ -73,8 +80,11 @@ export default function Paginacao({ pagina, setPagina, totalPaginas }) {
 
   return (
     <div className="paginacao-container">
+      {/* Container dos botões de página */}
       <div className="radio-input">
         {gerarBotoes()}
+
+        {/* Quadrado móvel que indica página selecionada */}
         <span
           className="selection"
           style={{
@@ -84,6 +94,7 @@ export default function Paginacao({ pagina, setPagina, totalPaginas }) {
         ></span>
       </div>
 
+      {/* Botões de navegação Anterior / Próxima */}
       <div className="paginacao-botoes">
         <button
           onClick={() => setPagina(pagina > 1 ? pagina - 1 : 1)}

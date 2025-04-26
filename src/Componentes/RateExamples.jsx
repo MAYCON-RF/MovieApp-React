@@ -3,7 +3,7 @@ import React from "react";
 export default function RateExamples({ filme }) {
   return (
     <div className="flex items-center justify-between w-full mt-3 px-2 text-sm">
-      {/* Estrela + nota */}
+      {/* Seção que exibe a estrela e a nota do filme */}
       <div className="flex items-center gap-2">
         <svg
           className="w-4 h-4 flex-shrink-0 text-yellow-400"
@@ -19,6 +19,8 @@ export default function RateExamples({ filme }) {
               -3.367-2.448c-.783-.57-.38-1.81.588-1.81h4.162l1.286-3.959z"
           />
         </svg>
+
+        {/* Exibição da nota média do filme */}
         <span className="font-semibold text-white tracking-wide">
           {filme.vote_average.toFixed(1)}
         </span>

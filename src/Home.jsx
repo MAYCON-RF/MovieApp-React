@@ -49,8 +49,10 @@ export default function Home() {
     aplicarFiltro(data.results);
   }
 
+  /* aplicarFiltro é a função que ordena a lista de filmes com base no filtro selecionado
+     (popularidade, avaliação ou data de lançamento) e atualiza o estado filmes */
   function aplicarFiltro(lista) {
-    let ordenado = [...(lista || filmes)]; // usa lista se foi passada, senão usa o estado atual
+    let ordenado = [...(lista || filmes)];
 
     if (filtro === "popularidade") {
       ordenado.sort((a, b) => b.popularity - a.popularity);
@@ -77,9 +79,7 @@ export default function Home() {
   return (
     <div style={{ padding: "2rem", textAlign: "center" }}>
       {/*Titulo*/}
-      <h1 style={{ color: "#e50914" }}>Filmes</h1>
-
-      {/* Campo de busca por nome de filme */}
+      <h1 style={{ color: "#e50914" }}>Movie App React</h1>
       <div
         style={{
           display: "flex",
@@ -90,53 +90,34 @@ export default function Home() {
           flexWrap: "wrap",
         }}
       >
+        {/* Campo de busca para digitar o nome do filme */}
+
         <input
           type="text"
           placeholder="Digite o nome do filme..."
           value={busca}
           onChange={(e) => setBusca(e.target.value)}
-          style={{
-            padding: "0.5rem",
-            width: "250px",
-            fontSize: "1rem",
-            borderRadius: "4px",
-            border: "1px solid #ccc",
-          }}
+          className="p-2 w-[500px] text-[23px] rounded-md border border-gray-300 text-black"
         />
 
-        {/* Seletor de filtros */}
+        {/* Seletor de filtro para ordenar a lista de filmes */}
         <select
           value={filtro}
           onChange={(e) => {
             setFiltro(e.target.value);
             setPagina(1);
           }}
-          style={{
-            padding: "0.5rem",
-            fontSize: "1rem",
-            borderRadius: "4px",
-            border: "1px solid #ccc",
-          }}
+          className="p-2 w-[250px] text-[23px] rounded-md border border-gray-300 text-black bg-white focus:outline-none focus:ring-2 focus:ring-red-600"
         >
           <option value="popularidade">Popularidade</option>
           <option value="avaliacao">Avaliação</option>
           <option value="data">Data de Lançamento</option>
         </select>
-        {/* Botão que executa a função de busca */}
 
+        {/* Botão que executa a função de busca ao clica realizando busca de acordo com o nome digitado ou filtro escolhido */}
         <button
-          onClick={() => {
-            buscarFilmes(); // Faz a nova busca
-          }}
-          style={{
-            padding: "0.5rem 1rem",
-            fontSize: "1rem",
-            borderRadius: "4px",
-            border: "none",
-            backgroundColor: "#e50914",
-            color: "#fff",
-            cursor: "pointer",
-          }}
+          onClick={() => buscarFilmes()}
+          className="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
         >
           Buscar
         </button>
@@ -152,6 +133,7 @@ export default function Home() {
           alignContent: "start",
         }}
       >
+        {/* FilmeCard é componente que exibe informações básicas de cada filme e executa a função 'buscarDetalhesFilme' ao clicar nele */}
         {filmes.map((filme) => (
           <FilmeCard
             key={filme.id}
@@ -161,7 +143,7 @@ export default function Home() {
         ))}
       </div>
 
-      {/* Modal com detalhes do filme */}
+      {/* Modal que exibe detalhes adicionais do filme selecionado. É exibido somente quando 'filmeSelecionado' não é nulo */}
       {filmeSelecionado && (
         <div
           style={{
@@ -177,6 +159,7 @@ export default function Home() {
             zIndex: 9999,
           }}
         >
+          {/* Container principal com informações detalhadas do filme */}
           <div
             style={{
               backgroundColor: "#fff",
@@ -191,26 +174,17 @@ export default function Home() {
             }}
           >
             {/* Botão de fechar no canto superior esquerdo */}
-            <button
-              onClick={() => setFilmeSelecionado(null)}
-              style={{
-                position: "fixed",
-                top: "10px",
-                right: "10px",
-                backgroundColor: "#e50914",
-                border: "none",
-                fontSize: "1.2rem",
-                fontWeight: "bold",
-                color: "#fff",
-                cursor: "pointer",
-                borderRadius: "4px",
-                padding: "0.5rem",
-                zIndex: 10000, // sobrepõe tudo
-              }}
-              aria-label="Fechar"
-            >
-              ×
-            </button>
+            <div className="flex justify-end">
+              <button
+                onClick={() => setFilmeSelecionado(null)}
+                aria-label="Fechar"
+                className="bg-red-600 hover:bg-red-700 text-white text-lg font-bold rounded-md w-8 h-8 flex items-center justify-center cursor-pointer"
+              >
+                ×
+              </button>
+            </div>
+
+            {/* Seção que exibe o título e a sinopse do filme */}
             <div
               style={{
                 backgroundColor: "#f0f0f0",
@@ -241,7 +215,7 @@ export default function Home() {
               </p>
             </div>
 
-            {/* Exibição em cards do elenco */}
+            {/* Seção para exibir cards do elenco do filme selecionado */}
 
             <div
               style={{
@@ -285,6 +259,8 @@ export default function Home() {
                 </div>
               ))}
             </div>
+
+            {/* Exibição do trailer do filme, quando disponível, ou exibição alternativa se indisponível */}
 
             <div
               style={{
@@ -346,6 +322,9 @@ export default function Home() {
           </div>
         </div>
       )}
+
+      {/* Seção que chama o arquivo com a função paginação */}
+
       <Paginacao
         pagina={pagina}
         setPagina={setPagina}
