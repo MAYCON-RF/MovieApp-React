@@ -14,7 +14,7 @@ function App() {
 
       <h1>Bem Vindo ao Movie App React!</h1>
 
-      <div className="card">
+      <div className="home-card">
         <Link to="/home">
           <button>Entrar no app</button>
         </Link>

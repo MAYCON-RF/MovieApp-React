@@ -2,6 +2,7 @@
 import { useEffect, useState } from "react";
 import RateExamples from "./Componentes/RateExamples";
 import FilmeCard from "./Componentes/FilmeCard";
+import Paginacao from "./Componentes/Paginacao";
 
 export default function Home() {
   /* Filmes é Estado que armazena a lista de filmes retornados da API, Inicialmente é um array vazio. 
@@ -16,11 +17,17 @@ export default function Home() {
 
   /* filmeSelecionado é Estado que armazena o filme selecionado, útil para exibir detalhes. Inicialmente é null, ou seja, nenhum filme está selecionado".*/
   const [filmeSelecionado, setFilmeSelecionado] = useState(null);
+  const [pagina, setPagina] = useState(1);
+  const [totalPaginas, setTotalPaginas] = useState(1);
 
   /* useEffect é um Hook que executa a busca por filmes da categoria assim que o componente é montado*/
   useEffect(() => {
     buscarFilmes();
-  }, []);
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  }, [pagina]);
 
   /*  buscarFilmes é a Função que busca filmes com base no texto digitado */
   async function buscarFilmes() {
@@ -28,16 +35,17 @@ export default function Home() {
 
     if (busca.trim() === "") {
       // Busca filmes em cartaz
-      url = `https://api.themoviedb.org/3/movie/now_playing?api_key=cb8aa97aefa3540c0fa8f582cce31e14&language=pt-BR&page=1`;
+      url = `https://api.themoviedb.org/3/movie/now_playing?api_key=cb8aa97aefa3540c0fa8f582cce31e14&language=pt-BR&page=${pagina}`;
     } else {
       // Busca por nome do filme
       const buscaFormatada = encodeURIComponent(busca);
-      url = `https://api.themoviedb.org/3/search/movie?api_key=cb8aa97aefa3540c0fa8f582cce31e14&language=pt-BR&query=${buscaFormatada}`;
+      url = `https://api.themoviedb.org/3/search/movie?api_key=cb8aa97aefa3540c0fa8f582cce31e14&language=pt-BR&query=${buscaFormatada}&page=${pagina}`;
     }
 
     const response = await fetch(url);
     const data = await response.json();
     setFilmes(data.results);
+    setTotalPaginas(data.total_pages);
     aplicarFiltro(data.results);
   }
 
@@ -99,7 +107,10 @@ export default function Home() {
         {/* Seletor de filtros */}
         <select
           value={filtro}
-          onChange={(e) => setFiltro(e.target.value)}
+          onChange={(e) => {
+            setFiltro(e.target.value);
+            setPagina(1);
+          }}
           style={{
             padding: "0.5rem",
             fontSize: "1rem",
@@ -114,7 +125,9 @@ export default function Home() {
         {/* Botão que executa a função de busca */}
 
         <button
-          onClick={buscarFilmes}
+          onClick={() => {
+            buscarFilmes(); // Faz a nova busca
+          }}
           style={{
             padding: "0.5rem 1rem",
             fontSize: "1rem",
@@ -333,6 +346,11 @@ export default function Home() {
           </div>
         </div>
       )}
+      <Paginacao
+        pagina={pagina}
+        setPagina={setPagina}
+        totalPaginas={totalPaginas}
+      />
     </div>
   );
 }

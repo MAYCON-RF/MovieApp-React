@@ -47,16 +47,6 @@ button:hover {
   animation: spin-top 2s linear infinite;
 }
 
-/* Roda (2D) */
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
 /* Pião (3D) */
 @keyframes spin-top {
   from {
@@ -67,7 +57,7 @@ button:hover {
   }
 }
 
-/* Outros ajustes visuais */
+/* Configuração do Card do filme*/
 .card {
   --card-bg: #141414;
   --card-accent: #e50914;
@@ -77,7 +67,7 @@ button:hover {
   padding: 2em;
   background: var(--card-bg);
   border-radius: 20px;
-  margin-top: 2rem;
+  margin-top: 0rem;
   width: 220px;
   height: 420px;
   position: relative;
@@ -141,7 +131,7 @@ button:hover {
 
 .card__title {
   color: var(--card-text);
-  font-size: 1.1em;
+  font-size: 1em;
   margin: 0;
   font-weight: 700;
   transition: all 0.3s ease;
@@ -163,6 +153,8 @@ button:hover {
   box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5),
     0 10px 10px -5px rgba(0, 0, 0, 0.3);
   border-color: rgba(241, 24, 42, 0.3);
+  width: 225px;
+  height: 454px;
 }
 
 .card:hover .card__shine {
@@ -194,9 +186,6 @@ button:hover {
     background-position: 200% 0;
   }
 }
-.read-the-docs {
-  color: #888;
-}
 
 @keyframes shine {
   0% {
@@ -213,4 +202,160 @@ body {
   background-color: #000; /* preto */
   color: #fff; /* texto branco */
   font-family: "Arial", sans-serif;
+}
+
+.home-card {
+  background-color: #141414;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 20px;
+  width: 300px;
+  padding: 2rem;
+  margin: 2rem auto;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+  transition: all 0.3s ease;
+}
+
+.home-card p {
+  font-size: 1rem;
+  color: #ccc;
+  text-align: center;
+  margin: 0;
+}
+
+.home-card button {
+  background-color: #e50914;
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.home-card button:hover {
+  background-color: #b20710;
+}
+/* Paginação */
+.radio-input {
+  min-width: 220px; /* Alterei para min-width para não quebrar em tamanhos maiores */
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #212121;
+  color: #fff;
+  border: 2px solid #fff;
+  border-radius: 12px;
+  overflow: hidden;
+  padding: 2px;
+  gap: 10px;
+  height: 40px;
+  margin: 0 auto;
+}
+
+.radio-input input {
+  display: none;
+}
+
+.pagina-label {
+  position: relative;
+  flex: none;
+  min-width: 36px; /* Agora o botão tem largura fixa */
+  height: 36px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: 600;
+  z-index: 2;
+  transition: all 0.3s ease;
+  border-radius: 6px;
+  padding: 0 8px;
+}
+
+/* HOVER nos botões de página */
+.pagina-label:hover {
+  background-color: #e50914;
+}
+
+/* Animação para botão selecionado */
+@keyframes pulsar {
+  0% {
+    box-shadow: 0 0 5px #e50914;
+  }
+  50% {
+    box-shadow: 0 0 15px #e50914;
+  }
+  100% {
+    box-shadow: 0 0 5px #e50914;
+  }
+}
+
+/* Quando botão de página está ativo */
+.pagina-label input:checked + span {
+  color: #000;
+  background-color: #e50914;
+  transform: scale(1.05);
+  animation: pulsar 1.5s infinite;
+}
+
+/* Quadrado vermelho móvel */
+.selection {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  background-color: #e50914;
+  border-radius: 6px;
+  z-index: 1;
+  width: 36px; /* Fixo para acompanhar o botão */
+  transition: transform 0.3s ease;
+}
+
+/* Botões Anterior/Próxima */
+.paginacao-botoes {
+  margin-top: 1rem;
+  display: flex;
+  gap: 0.5rem;
+  justify-content: center;
+}
+
+.botao-paginacao {
+  background-color: #212121;
+  border: 2px solid #e50914;
+  color: #e50914;
+  padding: 8px 16px;
+  font-size: 18px;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.botao-paginacao:hover {
+  background-color: #e50914;
+  color: #fff;
+}
+
+.botao-paginacao.desativado {
+  background-color: #555;
+  color: #ccc;
+  border-color: #777;
+  cursor: not-allowed;
+}
+
+/* Container da paginação */
+.paginacao-container {
+  margin-top: 3rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
 }
