@@ -8,17 +8,16 @@ O **MovieApp** é uma aplicação web desenvolvida em **React** que permite aos 
 ## 📸 Preview do Projeto
 
 ### Página Inicial
-![Página Inicial](public/pagina-inicial.png)
+<img src="images/pagina-inicial.png" alt="Página Inicial" width="600"/>
 
 ### Página Home - Parte 1
-![Página Home 1](public/pagina-home-1.png)
+<img src="images/pagina-home-1.png" alt="Página Home 1" width="600"/>
 
 ### Página Home - Parte 2
-![Página Home 2](public/pagina-home-2.png)
+<img src="images/pagina-home-2.png" alt="Página Home 2" width="600"/>
 
 ### Página de Detalhes do Filme
-![Página de Detalhes](public/pagina-de-detalhes.png)
-
+<img src="images/pagina-de-detalhes.png" alt="Página de Detalhes" width="600"/>
 
 ## Funcionalidades
 
