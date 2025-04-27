@@ -7,7 +7,6 @@ import App from "./App.jsx";
 import Home from "./Home.jsx";
 
 /* Renderiza a aplicação React dentro do elemento com id 'root' usando StrictMode e BrowserRouter para roteamento */
-
 createRoot(document.getElementById("root")).render(
   <StrictMode>
     <BrowserRouter>

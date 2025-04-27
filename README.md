@@ -4,6 +4,22 @@
 
 O **MovieApp** é uma aplicação web desenvolvida em **React** que permite aos usuários explorar os filmes atualmente em cartaz no cinema. Integrando-se à API do **TMDb (The Movie Database)**, o sistema apresenta uma interface moderna, responsiva e fácil de usar, onde é possível visualizar detalhes de filmes, buscar por títulos e aplicar filtros.
 
+
+## 📸 Preview do Projeto
+
+### Página Inicial
+![Página Inicial](public/pagina-inicial.png)
+
+### Página Home - Parte 1
+![Página Home 1](public/pagina-home-1.png)
+
+### Página Home - Parte 2
+![Página Home 2](public/pagina-home-2.png)
+
+### Página de Detalhes do Filme
+![Página de Detalhes](public/pagina-de-detalhes.png)
+
+
 ## Funcionalidades
 
 1. **Listagem de Filmes em Cartaz:**
@@ -59,6 +75,14 @@ O **MovieApp** é uma aplicação web desenvolvida em **React** que permite aos 
 git clone https://github.com/MAYCON-RF/MovieApp-React.git
 cd MovieApp-React
 ```
+
+### Passo 2: Configurar a Chave da API TMDb
+
+No arquivo Home.jsx, localize a constante API_KEY e substitua com a Chave da API cadastrada no site https://www.themoviedb.org/settings/api
+
+const API_KEY = "SUA_CHAVE_AQUI";
+
+Ex: API_KEY = "c3f4b71b8c7d51a0b5e2f982bc41f912";
 
 ### Passo 2: Rodar o Projeto
 

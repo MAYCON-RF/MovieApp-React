@@ -9,7 +9,6 @@ export default function FilmeCard({ filme, onClick }) {
       <div className="card__glow"></div>
 
       {/* Conteúdo principal do card (imagem e informações do filme) */}
-
       <div className="card__content">
         {/* Seção que exibe a imagem (poster) do filme */}
         <div className="card__image">

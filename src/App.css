@@ -1,3 +1,6 @@
+/* Alguns exemplos de formatação CSS+ Tailwind foram retirados do site https://uiverse.io/  como o https://uiverse.io/SachinKumar666/new-donkey-55 
+e o https://uiverse.io/Yaya12085/lucky-fox-35 */
+
 /* Configuração geral do root */
 #root {
   max-width: 1280px;
@@ -208,8 +211,8 @@ button:hover {
 /* Fundo padrão da página */
 body {
   margin: 0;
-  background-color: #000; /* preto */
-  color: #fff; /* texto branco */
+  background-color: #000;
+  color: #fff;
   font-family: "Arial", sans-serif;
 }
 
@@ -254,7 +257,7 @@ body {
 
 /* Container da paginação */
 .radio-input {
-  min-width: 220px; /* Alterei para min-width para não quebrar em tamanhos maiores */
+  min-width: 220px;
   position: relative;
   display: flex;
   align-items: center;
@@ -278,7 +281,7 @@ body {
 .pagina-label {
   position: relative;
   flex: none;
-  min-width: 36px; /* Agora o botão tem largura fixa */
+  min-width: 36px;
   height: 36px;
   display: flex;
   justify-content: center;
@@ -327,7 +330,7 @@ body {
   background-color: #e50914;
   border-radius: 6px;
   z-index: 1;
-  width: 36px; /* Fixo para acompanhar o botão */
+  width: 36px;
   transition: transform 0.3s ease;
 }
 

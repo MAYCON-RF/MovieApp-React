@@ -6,8 +6,7 @@ import Paginacao from "./Componentes/Paginacao";
 
 /*Aqui fica a chave, para ser facilmente alterada
 substitua com a Chave da API cadastrada no site https://www.themoviedb.org/settings/api  */
-
-const API_KEY = "xxxxxxxxxxxx"; // <- Cole aqui sua chave da API
+const API_KEY = "cb8aa97aefa3540c0fa8f582cce31e14"; // <- Cole aqui sua chave da API
 
 export default function Home() {
   /* Filmes é Estado que armazena a lista de filmes retornados da API, Inicialmente é um array vazio. 
@@ -22,6 +21,7 @@ export default function Home() {
 
   /* filmeSelecionado é Estado que armazena o filme selecionado, útil para exibir detalhes. Inicialmente é null, ou seja, nenhum filme está selecionado".*/
   const [filmeSelecionado, setFilmeSelecionado] = useState(null);
+
   const [pagina, setPagina] = useState(1);
   const [totalPaginas, setTotalPaginas] = useState(1);
 
@@ -221,7 +221,6 @@ export default function Home() {
             </div>
 
             {/* Seção para exibir cards do elenco do filme selecionado */}
-
             <div
               style={{
                 display: "flex",
@@ -266,7 +265,6 @@ export default function Home() {
             </div>
 
             {/* Exibição do trailer do filme, quando disponível, ou exibição alternativa se indisponível */}
-
             <div
               style={{
                 backgroundColor: "#f0f0f0",
@@ -329,7 +327,6 @@ export default function Home() {
       )}
 
       {/* Seção que chama o arquivo com a função paginação */}
-
       <Paginacao
         pagina={pagina}
         setPagina={setPagina}

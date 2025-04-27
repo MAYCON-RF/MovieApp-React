@@ -24,11 +24,13 @@ function App() {
           Se você é um amante de cinema, crítico ou simplesmente alguém que
           adora acompanhar os lançamentos, seja muito bem-vindo!
         </p>
+
         <Link to="/home">
           <button className="bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-6 rounded transition-colors duration-300">
             Entrar no app
           </button>
         </Link>
+
         <p>
           Clique no botão acima para acessar a próxima página e descubra os
           filmes em cartaz.
