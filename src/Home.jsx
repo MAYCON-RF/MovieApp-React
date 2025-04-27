@@ -4,6 +4,11 @@ import RateExamples from "./Componentes/RateExamples";
 import FilmeCard from "./Componentes/FilmeCard";
 import Paginacao from "./Componentes/Paginacao";
 
+/*Aqui fica a chave, para ser facilmente alterada
+substitua com a Chave da API cadastrada no site https://www.themoviedb.org/settings/api  */
+
+const API_KEY = "xxxxxxxxxxxx"; // <- Cole aqui sua chave da API
+
 export default function Home() {
   /* Filmes é Estado que armazena a lista de filmes retornados da API, Inicialmente é um array vazio. 
  SetFilmes é usada para atualizar esse estado com novos dados retornados da API.*/
@@ -35,11 +40,11 @@ export default function Home() {
 
     if (busca.trim() === "") {
       // Busca filmes em cartaz
-      url = `https://api.themoviedb.org/3/movie/now_playing?api_key=cb8aa97aefa3540c0fa8f582cce31e14&language=pt-BR&page=${pagina}`;
+      url = `https://api.themoviedb.org/3/movie/now_playing?api_key=${API_KEY}&language=pt-BR&page=${pagina}`;
     } else {
       // Busca por nome do filme
       const buscaFormatada = encodeURIComponent(busca);
-      url = `https://api.themoviedb.org/3/search/movie?api_key=cb8aa97aefa3540c0fa8f582cce31e14&language=pt-BR&query=${buscaFormatada}&page=${pagina}`;
+      url = `https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&language=pt-BR&query=${buscaFormatada}&page=${pagina}`;
     }
 
     const response = await fetch(url);
@@ -70,7 +75,7 @@ export default function Home() {
   /* Função assíncrona que busca os detalhes completos de um filme selecionado a partir do ID do filme.
  Os dados são obtidos da API do TMDB e armazenados no estado filmeSelecionado.*/
   async function buscarDetalhesFilme(id) {
-    const url = `https://api.themoviedb.org/3/movie/${id}?api_key=cb8aa97aefa3540c0fa8f582cce31e14&language=pt-BR&append_to_response=videos,credits,translations`;
+    const url = `https://api.themoviedb.org/3/movie/${id}?api_key=${API_KEY}&language=pt-BR&append_to_response=videos,credits,translations`;
     const response = await fetch(url);
     const data = await response.json();
     setFilmeSelecionado(data);
