@@ -1,17 +1,27 @@
 import React from "react";
-import RateExamples from "./RateExamples";
+import RateExamples from "../components/RateExamples";
+import '../custom.css';
+import { BookmarkCheck } from "lucide-react";
 
-export default function FilmeCard({ filme, onClick }) {
+export default function FilmeCard({ filme, onClick, isFavorito }) {
   return (
-    <div className="card cursor-pointer" onClick={onClick}>
-      {/* Elemento visual para efeito de brilho sobre o card */}
-      <div className="card__shine"></div>
-      <div className="card__glow"></div>
+    <div className="filme-card cursor-pointer relative" onClick={onClick}>
+      {/* Brilho e efeitos */}
+      <div className="filme-card__shine"></div>
+      <div className="filme-card__glow"></div>
 
-      {/* Conteúdo principal do card (imagem e informações do filme) */}
-      <div className="card__content">
-        {/* Seção que exibe a imagem (poster) do filme */}
-        <div className="card__image">
+      {/* Ícone de Assistir mais tarde */}
+      {isFavorito && (
+        <div
+          className="absolute top-2 right-2 w-7 h-7 flex items-center justify-center
+          bg-yellow-400 text-yellow-900 rounded-full shadow z-10"
+        >
+          <BookmarkCheck className="w-4 h-4" />
+        </div>
+      )}
+
+      <div className="filme-card__content">
+        <div className="filme-card__image">
           <img
             src={
               filme.poster_path
@@ -28,15 +38,10 @@ export default function FilmeCard({ filme, onClick }) {
           />
         </div>
 
-        {/* Seção que exibe informações de texto sobre o filme */}
+        {/* Texto com detalhes */}
         <div className="card__text">
-          {/* Exibição do título do filme */}
           <h3 className="card__title">{filme.title}</h3>
-
-          {/* Componente que chama o arquivo RateExamples e exibe a avaliação do filme */}
           <RateExamples filme={filme} />
-
-          {/* Data de lançamento do filme formatada em português */}
           <p className="card__description">
             Lançamento:{" "}
             {new Date(filme.release_date).toLocaleDateString("pt-BR", {

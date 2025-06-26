@@ -165,81 +165,43 @@ export default function Home() {
         {filmeSelecionado && (
           <div className="fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center z-50 p-4">
             <div className="bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 rounded-2xl shadow-2xl max-w-4xl w-full max-h-[90vh] overflow-hidden relative">
+
               {/* Cabeçalho com título centralizado, favorito e fechar */}
-              <div className="flex flex-col gap-4 px-6 pt-6 pb-6 bg-gradient-to-r from-red-600/20 to-transparent rounded-t-2xl">
-                {/* Mobile: Layout em coluna */}
-                <div className="md:hidden">
-                  {/* Primeira linha: avaliação, ano e botão fechar */}
-                  <div className="flex items-center justify-between mb-3">
-                    <div className="flex items-center gap-2">
-                      <span className="flex items-center gap-1 text-yellow-400 font-semibold bg-yellow-500/10 px-2 py-1 rounded-full text-xs">
-                        ⭐ {filmeSelecionado.vote_average?.toFixed(1)}
-                      </span>
-                      <span className="text-white/70 text-xs">
-                        {new Date(filmeSelecionado.release_date).getFullYear()}
-                      </span>
-                    </div>
+              <div className="flex items-center justify-between px-6 pt-6 bg-gradient-to-r from-red-600/20 to-transparent relative">
 
-                    <div className="flex items-center gap-2">
-                      <div className="flex items-center gap-1 bg-yellow-500/20 px-2 py-1 rounded-full text-xs text-white font-semibold shadow">
-                        <BotaoFavorito
-                          filme={filmeSelecionado}
-                          onChange={atualizarFavoritos}
-                        />
-                        Assistir mais tarde
-                      </div>
-                      <button
-                        onClick={handleFecharCard}
-                        className="bg-red-600 hover:bg-red-700 text-white rounded-full w-8 h-8 flex items-center justify-center transition-colors duration-200 shadow-lg text-sm"
-                      >
-                        ×
-                      </button>
-                    </div>
-                  </div>
-
-                  {/* Segunda linha: título centralizado */}
-                  <h2 className="text-lg font-bold text-white text-center">
-                    {filmeSelecionado.title}
-                  </h2>
+                {/* Esquerda: avaliação e ano */}
+                <div className="flex items-center gap-3">
+                  <span className="flex items-center gap-1 text-yellow-400 font-semibold bg-yellow-500/10 px-3 py-1 rounded-full text-sm">
+                    ⭐ {filmeSelecionado.vote_average?.toFixed(1)}
+                  </span>
+                  <span className="text-white/70 text-sm">
+                    {new Date(filmeSelecionado.release_date).getFullYear()}
+                  </span>
                 </div>
 
+                {/* Centro: título */}
+                <h2 className="absolute left-1/2 transform -translate-x-1/2 text-2xl font-bold text-white text-center">
+                  {filmeSelecionado.title}
+                </h2>
 
-
-                {/* Desktop: Layout original em linha */}
-                <div className="hidden md:flex md:items-center md:justify-between">
-                  {/* Esquerda: avaliação e ano */}
-                  <div className="flex items-center gap-3">
-                    <span className="flex items-center gap-1 text-yellow-400 font-semibold bg-yellow-500/10 px-3 py-1 rounded-full text-sm">
-                      ⭐ {filmeSelecionado.vote_average?.toFixed(1)}
-                    </span>
-                    <span className="text-white/70 text-sm">
-                      {new Date(filmeSelecionado.release_date).getFullYear()}
-                    </span>
+                {/* Direita: favorito e fechar */}
+                <div className="flex items-center gap-3">
+                  <div className="flex items-center gap-2 bg-yellow-500/20 px-3 py-1 rounded-full text-sm text-white font-semibold shadow">
+                    <BotaoFavorito
+                      filme={filmeSelecionado}
+                      onChange={atualizarFavoritos}
+                    />
+                    Assistir mais tarde
                   </div>
-
-                  {/* Centro: título */}
-                  <h2 className="text-2xl font-bold text-white text-center flex-1 px-4">
-                    {filmeSelecionado.title}
-                  </h2>
-
-                  {/* Direita: favorito e fechar */}
-                  <div className="flex items-center gap-3">
-                    <div className="flex items-center gap-2 bg-yellow-500/20 px-3 py-1 rounded-full text-sm text-white font-semibold shadow">
-                      <BotaoFavorito
-                        filme={filmeSelecionado}
-                        onChange={atualizarFavoritos}
-                      />
-                      Assistir mais tarde
-                    </div>
-                    <button
-                      onClick={handleFecharCard}
-                      className="bg-red-600 hover:bg-red-700 text-white rounded-full w-10 h-10 flex items-center justify-center transition-colors duration-200 shadow-lg"
-                    >
-                      ×
-                    </button>
-                  </div>
+                  <button
+                    onClick={handleFecharCard}
+                    className="bg-red-600 hover:bg-red-700 text-white rounded-full w-10 h-10 flex items-center justify-center transition-colors duration-200 shadow-lg"
+                  >
+                    ×
+                  </button>
                 </div>
               </div>
+
 
               {/* Conteúdo principal scrollável */}
               <div className="overflow-y-auto max-h-[calc(90vh-120px)] p-6 space-y-6">
